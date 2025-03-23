@@ -9,7 +9,6 @@ class CustomerHelper(object):
     """
     def __init__(self):
         self.requests_utility = RequestsUtility()
-
     """
     1. Function to create customer and have the flexibility to pass default values for email and password as 'None' or the tester can pass a customized email
     2. **kwargs for whatever else like payload that needs to be passed - like username, address, etc.
@@ -27,12 +26,11 @@ class CustomerHelper(object):
             email = ep['email']
         if not password:
             password = 'Password1'
-
         payload = dict()
         payload['email'] = email
         payload['password'] = password
         payload.update(kwargs)
 
-        # make API call here using a helper class - requestsUtility
+       # make API call here using a helper class - requestsUtility. 'create_user_json' contains POST call response. for the POST call,# end point is 'customers' and payload is passed and the status code is 201 since a new customer has been created
         create_user_json = self.requests_utility.post('customers',payload =payload, expected_status_code=201)
         return create_user_json

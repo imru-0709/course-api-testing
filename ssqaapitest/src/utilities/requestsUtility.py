@@ -19,9 +19,9 @@ class RequestsUtility(object):
         self.auth = OAuth1('ck_1ae3bf3449ec1fae7e646bc633af8489ae787e5c','cs_ed6149672b676398eb83927109c177791b076571')
       #  self.auth = OAuth1(wc_creds['wc_key'], wc_creds['wc_secret'])
 
-    # def assert_status_code(self):
-    #     assert self.rs_status_code == self.expected_status_code , f"Bad status code, expected is {self.expected_status_code}, actual satus code us {self.status_code}" \
-    #      f"url: {self.url}, Response Json: {self.rs_json}"
+    def assert_status_code(self):
+        assert self.status_code == self.expected_status_code , f"Bad status code, expected is {self.expected_status_code}, actual status code us {self.status_code}" \
+         f"url: {self.url}, Response Json: {self.rs_json}"
 
     """
     1. 'payload' can be None
@@ -38,7 +38,6 @@ class RequestsUtility(object):
         if not headers:
             headers = {"Content-Type": "application/json"}
         self.url = self.base_url + endpoint
-
         rs_api = requests.post(url=self.url, data=json.dumps(payload), headers=headers, auth=self.auth)
         self.status_code = rs_api.status_code
         self.expected_status_code = expected_status_code
@@ -46,10 +45,8 @@ class RequestsUtility(object):
         assert self.status_code == int(expected_status_code), \
             f'Expected status code {expected_status_code} but actual {self.status_code}'
 
-        # self.assert_status_code()
-
+        self.assert_status_code()
         logger.debug(f"API response: {self.rs_json}")
-
         return self.rs_json
 
 
