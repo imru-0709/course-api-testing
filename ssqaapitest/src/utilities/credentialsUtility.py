@@ -6,6 +6,9 @@ class CredentialsUtility(object):
     def __init__(self):
         pass
 
+    """
+    1. Facing issue with setting WC_KEY and WC_SECRET at the os level, hence using hardcoded key value
+    """
     # @staticmethod
     # def get_wc_api_keys():
     #     wc_key = os.environ.get('WC_KEY')

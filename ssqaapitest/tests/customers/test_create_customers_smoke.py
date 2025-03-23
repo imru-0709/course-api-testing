@@ -31,14 +31,20 @@ def test_create_customer_only_email_password():
 
     """
     1. Need a helper class to make the call
+    2. The email from above and the password from above will be passed as arguments to the 'cust_obj.create_customer()' method
+    3. Then the return value is a dictionary which is stored in 'cust_api_info'
+    4. Then we do an assert on the email id and also to make sure that the new customer created does not have a first name
     """
     #make the call
     cust_obj = CustomerHelper()
     cust_api_info = cust_obj.create_customer(email=email, password=password)
 
-    # verify the status code of the call
+    assert cust_api_info['email'] == email , f"Create customer api return wrong email. Email: {email}"
+    assert cust_api_info['first_name'] == '' , f" Create customer api returned value for first name but it should be empty"
 
-    # verify the email in the response
+    # verify the status code of the call - this is already taken care of in requestutl
+
+    # verify the email and first name in the response - this is already taken care of
 
     """
     1. Making connection to Database and making a call to Database will be a helper class
