@@ -3,5 +3,7 @@ Name: ssqaapitest
 Version: 1.0
 Summary: Practice API testing
 Home-page: https://supersqa.com
+Author: Urmi Sahoo
+Dynamic: author
 Dynamic: home-page
 Dynamic: summary
