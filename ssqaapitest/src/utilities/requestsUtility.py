@@ -46,9 +46,31 @@ class RequestsUtility(object):
             f'Expected status code {expected_status_code} but actual {self.status_code}'
 
         self.assert_status_code()
-        logger.debug(f"API response: {self.rs_json}")
+        logger.debug(f"POST API response: {self.rs_json}")
         return self.rs_json
 
+    """
+       1. 'payload' can be None since it is 'get' call
+       2. if 'headers' is None then set the 'headers' to 'application/json'
+       3. 'expected_status_code'= 200 is present as a default value in the method signature
+       4. self.url is created by appending the base_url to the endpoint
+       5. GET request is made by passing the url, the data in JSON format, the header and auth ( consumer key and secret key)
+       6. setting self.status_code as the status code received from GET call response
+       7. setting the 'self.expected_status_code' as 'expected_status_code' from the function call, which is 200 by default
+       8. setting the 'self.rs_json' as 'rs_ap.json()' which is the JSON response of the GET call. 'self.rs_json' is this method's return value
+       9. Asserting when comparing the expected status code and the GET call status code ( ie. self.status_code)
+       """
+    def get(self, endpoint, payload=None, headers=None, expected_status_code = 200):
+        if not headers:
+            headers = {"Content-Type": "application/json"}
+        self.url = self.base_url + endpoint
+        rs_api = requests.get(url=self.url, data=json.dumps(payload), headers=headers, auth=self.auth)
+        self.status_code = rs_api.status_code
+        self.expected_status_code = expected_status_code
+        self.rs_json = rs_api.json()
+        assert self.status_code == int(expected_status_code), \
+            f'Expected status code {expected_status_code} but actual {self.status_code}'
 
-    def get(self):
-        pass
+        self.assert_status_code()
+        logger.debug(f"GET API response: {self.rs_json}")
+        return self.rs_json
