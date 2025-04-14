@@ -5,7 +5,7 @@ from ssqaapitest.src.utilities.requestsUtility import RequestsUtility
 class CustomerHelper(object):
 
     """
-    1.This is a helper class and not a test class hence the __init__
+    1.This is a helper class and not a test class hence the __init__ which is a constrcutor
     """
     def __init__(self):
         self.requests_utility = RequestsUtility()
